@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +37,7 @@ public class StockImp implements StockService {
 
     @Override
     public Stock getStockById(Long Id) {
-//        Throw NoParameterFoundException
-        if(null==Id){return null;}
-//        Throw NoRecordFoundException
+//        Throw StockNotFoundException
         Stock stock = stockRepo.findById(Id).orElseThrow(() ->new StockNotFoundException("UNABLE TO GET STOCK WITH ID: "+Id));
         return stock;
     }
@@ -48,6 +47,7 @@ public class StockImp implements StockService {
         Stock stock = stockRepo.findById(stockUpdateDTO.getId()).orElseThrow(() ->new StockNotFoundException("UNABLE TO GET STOCK WITH ID: "+stockUpdateDTO.getId()));
         stock.setCurrent_price(stockUpdateDTO.getCurrent_price());
         stock.setName(stockUpdateDTO.getName());
+        stock.setLast_update(LocalDateTime.now());
         Stock updatedStock = stockRepo.save(stock);
         return updatedStock;
     }

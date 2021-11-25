@@ -1,6 +1,7 @@
 package com.active.edge.stock.api.activedge.controller;
 
 
+import com.active.edge.stock.api.activedge.aop.annotation.LogExecutionTime;
 import com.active.edge.stock.api.activedge.dto.StockDTO;
 import com.active.edge.stock.api.activedge.entity.Stock;
 import com.active.edge.stock.api.activedge.services.StockService;
@@ -22,6 +23,7 @@ public class StockController {
 
 
 //    GET /api/stocks … (get the List of Stocks)
+    @LogExecutionTime
     @GetMapping()
     public ResponseEntity<?> getStockList() {
         List<Stock> stockList = stockService.getAllStocks();
@@ -30,6 +32,7 @@ public class StockController {
 
 
 //    GET /api/stocks/1 … (get a single Stock from the list by its ID)
+    @LogExecutionTime
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getStockById(@PathVariable Long id) {
         Stock stock = stockService.getStockById(id);
@@ -37,6 +40,7 @@ public class StockController {
     }
 
 //    PUT /api/stocks/1 … (update the current_price/name of a single Stock)
+    @LogExecutionTime
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateStockById(@RequestBody StockDTO stockDTO) {
         Stock updatedStock = stockService.updateStock(stockDTO);
@@ -44,18 +48,20 @@ public class StockController {
     }
 
 //    DELETE /api/stocks/1 … (delete a single Stock by its ID)
+    @LogExecutionTime
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteStockById(@PathVariable Long id) {
          stockService.deleteById(id);
-        return new ResponseEntity<>(new JsonResponse("Successfully deleted Stock by ID: "+id), HttpStatus.OK);
+        return new ResponseEntity<>(new JsonResponse("Delete Successfully with Stock ID: "+id), HttpStatus.OK);
     }
 
 //    POST /api/stocks … (create a new Stock)
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
+    @LogExecutionTime
     @PostMapping()
     public ResponseEntity<?> createStock(@RequestBody Stock stock) {
         Stock savedStock = stockService.createStock(stock);
-        return ResponseEntity.ok(savedStock);
+        return new ResponseEntity<>(savedStock, HttpStatus.CREATED);
     }
 
 

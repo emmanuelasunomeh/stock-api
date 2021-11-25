@@ -4,6 +4,7 @@ import com.active.edge.stock.api.activedge.exceptions.StockNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,13 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
         return RestResponse.builder()
                 .status(HttpStatus.NOT_FOUND)
                 .message(ex.getMessage()==null?"NO RECORD FOUND":ex.getMessage())
+                .entity();
+    }
+    @ExceptionHandler({InvalidDataAccessApiUsageException.class, IllegalArgumentException.class})
+    ResponseEntity<?> IllegalArgument(Exception ex, WebRequest request) {
+        return RestResponse.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message("THE GIVEN ID MUST NOT BE NULL")
                 .entity();
     }
 
