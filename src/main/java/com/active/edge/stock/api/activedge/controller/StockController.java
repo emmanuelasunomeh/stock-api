@@ -41,7 +41,7 @@ public class StockController {
 
 //    PUT /api/stocks/1 … (update the current_price/name of a single Stock)
     @LogExecutionTime
-    @PutMapping(path = "/{id}")
+    @PutMapping()
     public ResponseEntity<?> updateStockById(@RequestBody StockDTO stockDTO) {
         Stock updatedStock = stockService.updateStock(stockDTO);
         return new ResponseEntity<>(updatedStock, HttpStatus.OK);

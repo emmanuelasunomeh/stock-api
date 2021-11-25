@@ -1,0 +1,40 @@
+= STOCK API DOCUMENTATION
+
+This is an example output for a service running at http://localhost:8080:
+
+== POST CREATE STOCK
+request.
+include::{snippets}/testCreateStock/http-request.adoc[]
+response.
+include::{snippets}/testCreateStock/http-response.adoc[]
+
+== GET STOCK BY ID
+
+request.
+include::{snippets}/testGetStockById/http-request.adoc[]
+response.
+include::{snippets}/testGetStockById/http-response.adoc[]
+
+
+== GET ALL STOCK
+
+request.
+include::{snippets}/testGetAllStocks/http-request.adoc[]
+response.
+include::{snippets}/testGetAllStocks/http-response.adoc[]
+
+
+== DELETE STOCK BY ID
+
+request.
+include::{snippets}/testDeleteStockById/http-request.adoc[]
+response.
+include::{snippets}/testDeleteStockById/http-response.adoc[]
+
+
+== UPDATE STOCK
+
+request.
+include::{snippets}/testUpdateStockById/http-request.adoc[]
+response.
+include::{snippets}/testUpdateStockById/http-response.adoc[]
