@@ -1,4 +1,4 @@
-package com.active.edge.stock.api.activeedge.entity;
+package com.active.edge.stock.api.activedge.entity;
 
 import lombok.Data;
 
